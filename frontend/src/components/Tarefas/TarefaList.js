@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { getTarefas, deleteTarefa } from '../../services/api';
+import { getTasks, deleteTask } from '../../services/api';
+import { getToken } from '../../utils/jwt';
 
 const TarefaList = () => {
     const [tarefas, setTarefas] = useState([]);
@@ -9,23 +10,25 @@ const TarefaList = () => {
     }, []);
 
     const fetchTarefas = async () => {
-        const response = await getTarefas();
-        setTarefas(response.data);
+        const token = getToken();
+        const data = await getTasks(token);
+        setTarefas(data);
     };
 
     const handleDelete = async (id) => {
-        await deleteTarefa(id);
+        const token = getToken();
+        await deleteTask(id, token);
         fetchTarefas();
     };
 
     return (
-        <div>
-            <h2>Lista de Tarefas</h2>
-            <ul>
+        <div className="bg-white rounded-lg shadow-lg p-6">
+            <h2 className="text-2xl font-semibold mb-4 text-blue-700">Lista de Tarefas</h2>
+            <ul className="space-y-3">
                 {tarefas.map(tarefa => (
-                    <li key={tarefa.id}>
-                        <span>{tarefa.nome}</span>
-                        <button onClick={() => handleDelete(tarefa.id)}>Excluir</button>
+                    <li key={tarefa.id} className="flex items-center justify-between bg-blue-50 rounded p-3 hover:bg-blue-100 transition">
+                        <span className="text-gray-800 font-medium">{tarefa.nome}</span>
+                        <button onClick={() => handleDelete(tarefa.id)} className="ml-4 px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition">Excluir</button>
                         {/* Botão para editar pode ser adicionado aqui */}
                     </li>
                 ))}

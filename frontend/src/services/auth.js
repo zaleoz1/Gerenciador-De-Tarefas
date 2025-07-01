@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { getToken } from '../utils/jwt';
 
 const API_URL = 'http://localhost:8080/api/auth/';
 
@@ -31,9 +30,11 @@ const getCurrentUser = () => {
     return JSON.parse(localStorage.getItem('user'));
 };
 
-export default {
+const auth = {
     register,
     login,
     logout,
     getCurrentUser
 };
+
+export default auth;
