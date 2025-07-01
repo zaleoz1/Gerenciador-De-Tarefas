@@ -28,7 +28,7 @@ Para executar o projeto, utilize o Docker Compose. Certifique-se de ter o Docker
 
 1. Clone o repositório:
    ```
-   git clone <URL_DO_REPOSITORIO>
+   git clone "https://github.com/zaleoz1/Gerenciador-De-Tarefas"
    cd gerenciador-de-tarefas
    ```
 
