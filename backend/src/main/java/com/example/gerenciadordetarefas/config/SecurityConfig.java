@@ -30,7 +30,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
             .authorizeRequests()
-            .antMatchers("/api/auth/**").permitAll() // Permitir acesso público para autenticação
+            .antMatchers(
+                "/api/auth/**",
+                "/swagger-ui.html",
+                "/swagger-ui/**",
+                "/v3/api-docs/**",
+                "/v2/api-docs",
+                "/webjars/**",
+                "/swagger-resources/**"
+            ).permitAll() // Permitir acesso público para autenticação e Swagger
             .anyRequest().authenticated(); // Requer autenticação para qualquer outra requisição
 
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);

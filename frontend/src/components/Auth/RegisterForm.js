@@ -32,7 +32,7 @@ const RegisterForm = () => {
                 <div className="w-full md:w-1/2 h-full flex flex-col justify-center items-center bg-gradient-to-br from-white to-[#f3e5f5] p-6 md:p-10 relative">
                     <div className="text-center">
                         <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Já tem uma conta?</h2>
-                        <p className="text-gray-600 mb-6 md:mb-8">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
+                        <p className="text-gray-600 mb-6 md:mb-8">Lorem Ipsum has been the industry's standard dummy text ever since the</p>
                         <button
                             onClick={() => history.push('/login')}
                             className="w-full md:w-auto px-8 py-3 border border-gray-400 rounded-full text-gray-800 font-semibold hover:bg-gray-100 transition text-lg"

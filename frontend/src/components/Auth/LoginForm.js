@@ -1,24 +1,25 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import auth from '../../services/auth';
+import { login } from '../../services/auth';
 
 const LoginForm = () => {
-    const [loginData, setLoginData] = useState({ username: '', password: '' });
-    const [error, setError] = useState('');
+    const [loginInput, setLoginInput] = useState('');
+    const [senha, setSenha] = useState('');
+    const [erro, setErro] = useState('');
     const history = useHistory();
-
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setLoginData({ ...loginData, [name]: value });
-    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setErro('');
+        if (!loginInput || !senha) {
+            setErro('Preencha todos os campos.');
+            return;
+        }
         try {
-            await auth.login(loginData.username, loginData.password);
+            await login(loginInput, senha);
             history.push('/tarefas');
         } catch (err) {
-            setError('Login falhou. Verifique suas credenciais.');
+            setErro('Login inválido. Verifique seu usuário e senha.');
         }
     };
 
@@ -29,14 +30,14 @@ const LoginForm = () => {
                 <div className="w-full md:w-1/2 h-full bg-[#23242a] flex flex-col justify-center items-center p-6 md:p-10">
                     <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 md:mb-8 text-center">Fazer login</h2>
                     <form onSubmit={handleSubmit} className="w-full max-w-xs space-y-4">
-                        {error && <p className="text-red-400 text-center mb-2">{error}</p>}
+                        {erro && <p className="text-red-400 text-center mb-2">{erro}</p>}
                         <input
                             type="text"
                             id="username"
                             name="username"
                             placeholder="E-mail"
-                            value={loginData.username}
-                            onChange={handleChange}
+                            value={loginInput}
+                            onChange={e => setLoginInput(e.target.value)}
                             required
                             className="w-full px-4 py-3 bg-[#35363b] text-white rounded-md focus:outline-none focus:ring-2 focus:ring-violet-400 placeholder-gray-400"
                         />
@@ -45,8 +46,8 @@ const LoginForm = () => {
                             id="password"
                             name="password"
                             placeholder="Senha"
-                            value={loginData.password}
-                            onChange={handleChange}
+                            value={senha}
+                            onChange={e => setSenha(e.target.value)}
                             required
                             className="w-full px-4 py-3 bg-[#35363b] text-white rounded-md focus:outline-none focus:ring-2 focus:ring-violet-400 placeholder-gray-400"
                         />

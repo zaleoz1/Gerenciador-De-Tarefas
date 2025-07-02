@@ -1,0 +1,15 @@
+C:\Users\Isaléo Guimarães\Desktop\Projetos\gerenciador-de-tarefas\backend\src\main\java\com\example\gerenciadordetarefas\dto\LoginRequest.java
+C:\Users\Isaléo Guimarães\Desktop\Projetos\gerenciador-de-tarefas\backend\src\main\java\com\example\gerenciadordetarefas\model\Usuario.java
+C:\Users\Isaléo Guimarães\Desktop\Projetos\gerenciador-de-tarefas\backend\src\main\java\com\example\gerenciadordetarefas\repository\UsuarioRepository.java
+C:\Users\Isaléo Guimarães\Desktop\Projetos\gerenciador-de-tarefas\backend\src\main\java\com\example\gerenciadordetarefas\service\TarefaService.java
+C:\Users\Isaléo Guimarães\Desktop\Projetos\gerenciador-de-tarefas\backend\src\main\java\com\example\gerenciadordetarefas\security\JwtAuthenticationFilter.java
+C:\Users\Isaléo Guimarães\Desktop\Projetos\gerenciador-de-tarefas\backend\src\main\java\com\example\gerenciadordetarefas\service\AuthService.java
+C:\Users\Isaléo Guimarães\Desktop\Projetos\gerenciador-de-tarefas\backend\src\main\java\com\example\gerenciadordetarefas\controller\TarefaController.java
+C:\Users\Isaléo Guimarães\Desktop\Projetos\gerenciador-de-tarefas\backend\src\main\java\com\example\gerenciadordetarefas\model\Tarefa.java
+C:\Users\Isaléo Guimarães\Desktop\Projetos\gerenciador-de-tarefas\backend\src\main\java\com\example\gerenciadordetarefas\dto\TarefaDTO.java
+C:\Users\Isaléo Guimarães\Desktop\Projetos\gerenciador-de-tarefas\backend\src\main\java\com\example\gerenciadordetarefas\security\JwtTokenProvider.java
+C:\Users\Isaléo Guimarães\Desktop\Projetos\gerenciador-de-tarefas\backend\src\main\java\com\example\gerenciadordetarefas\repository\TarefaRepository.java
+C:\Users\Isaléo Guimarães\Desktop\Projetos\gerenciador-de-tarefas\backend\src\main\java\com\example\gerenciadordetarefas\controller\AuthController.java
+C:\Users\Isaléo Guimarães\Desktop\Projetos\gerenciador-de-tarefas\backend\src\main\java\com\example\gerenciadordetarefas\dto\RegisterRequest.java
+C:\Users\Isaléo Guimarães\Desktop\Projetos\gerenciador-de-tarefas\backend\src\main\java\com\example\gerenciadordetarefas\GerenciadorDeTarefasApplication.java
+C:\Users\Isaléo Guimarães\Desktop\Projetos\gerenciador-de-tarefas\backend\src\main\java\com\example\gerenciadordetarefas\config\SecurityConfig.java

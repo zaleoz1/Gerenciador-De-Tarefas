@@ -636,6 +636,10 @@ video {
   margin-top: 0.5rem;
 }
 
+.mt-6 {
+  margin-top: 1.5rem;
+}
+
 .block {
   display: block;
 }
@@ -908,6 +912,11 @@ video {
 
 .bg-\[\#0a1124\]\/80 {
   background-color: rgb(10 17 36 / 0.8);
+}
+
+.bg-gray-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(243 244 246 / var(--tw-bg-opacity, 1));
 }
 
 .bg-opacity-90 {
