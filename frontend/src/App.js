@@ -20,7 +20,6 @@ function Layout({ children }) {
     }
   }, []);
 
-  // Adiciona imagem de fundo apenas nas rotas de login e cadastro
   return (
     <div className="min-h-screen flex flex-col relative">
       {(location.pathname === '/login' || location.pathname === '/register') && (

@@ -9,6 +9,8 @@ const TarefaForm = ({ tarefa, onSave, onCancel }) => {
     const [dataFim, setDataFim] = useState('');
     const [status, setStatus] = useState('Pendente');
     const [erro, setErro] = useState('');
+    const [sucesso, setSucesso] = useState('');
+    const [showSucesso, setShowSucesso] = useState(false);
     const history = useHistory();
     const usuarioNome = localStorage.getItem('usuarioNome') || 'Usuário';
 
@@ -21,7 +23,6 @@ const TarefaForm = ({ tarefa, onSave, onCancel }) => {
         }
     }, [tarefa]);
 
-    // Função para converter data (YYYY-MM-DD) para LocalDateTime (YYYY-MM-DDT00:00:00)
     const toLocalDateTime = (dateStr) => {
         return dateStr ? `${dateStr}T00:00:00` : '';
     };
@@ -29,6 +30,8 @@ const TarefaForm = ({ tarefa, onSave, onCancel }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setErro('');
+        setSucesso('');
+        setShowSucesso(false);
         const tarefaData = {
             nome,
             dataHoraInicio: toLocalDateTime(dataInicio),
@@ -41,7 +44,15 @@ const TarefaForm = ({ tarefa, onSave, onCancel }) => {
                 await updateTask(tarefa.id, tarefaData, token);
             } else {
                 await createTask(tarefaData, token);
+                // Limpa o formulário após salvar nova tarefa
+                setNome('');
+                setDataInicio('');
+                setDataFim('');
+                setStatus('Pendente');
             }
+            setSucesso('Tarefa salva com sucesso!');
+            setShowSucesso(true);
+            setTimeout(() => setShowSucesso(false), 3000);
             if (onSave) onSave();
         } catch (err) {
             let msg = 'Erro ao salvar tarefa. Verifique os dados e tente novamente.';
@@ -59,91 +70,104 @@ const TarefaForm = ({ tarefa, onSave, onCancel }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="bg-white rounded-xl shadow-2xl p-8 space-y-6 max-w-lg mx-auto border border-gray-100">
-            <div className="mb-4 text-right text-sm text-gray-500 font-medium">Bem-vindo, {usuarioNome}!</div>
-            {erro && (
-                <div className="mb-4 text-red-600 font-semibold bg-red-100 rounded p-2 border border-red-200">{erro}</div>
-            )}
-            <div className="flex items-center justify-between mb-4">
-                <h2 className="text-2xl font-bold text-blue-800 flex items-center gap-2">
-                    <span className="inline-block w-2 h-6 bg-blue-600 rounded mr-2"></span>
-                    {tarefa ? 'Editar Tarefa' : 'Nova Tarefa'}
-                </h2>
-                <button
-                    type="button"
-                    onClick={handleVisualizarLista}
-                    className="flex items-center gap-2 px-4 py-2 bg-blue-100 text-blue-800 rounded-lg hover:bg-blue-200 transition font-medium border border-blue-200 shadow-sm"
-                    title="Visualizar lista de tarefas"
-                >
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" /></svg>
-                    Visualizar Lista
-                </button>
+        <div className="relative w-full max-w-lg mx-auto">
+            {}
+            <div
+                className={`fixed left-1/2 top-8 z-50 transform -translate-x-1/2 transition-all duration-500 ${showSucesso ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'}`}
+                style={{ minWidth: '260px' }}
+            >
+                {sucesso && (
+                    <div className="text-green-700 font-semibold bg-green-100 rounded p-3 border border-green-200 shadow-lg drop-shadow-lg animate-fade-in-out">
+                        {sucesso}
+                    </div>
+                )}
             </div>
-            <div>
-                <label className="block text-gray-700 mb-1 font-medium">Nome da Tarefa</label>
-                <input
-                    type="text"
-                    value={nome}
-                    onChange={(e) => setNome(e.target.value)}
-                    required
-                    placeholder="Digite o nome da tarefa"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition shadow-sm"
-                />
-            </div>
-            <div className="flex  gap-4">
-                <div className="flex-1">
-                    <label className="block text-gray-700 mb-1 font-medium">Data de Início</label>
+            <form onSubmit={handleSubmit} className="bg-white rounded-xl shadow-2xl p-4 sm:p-6 md:p-8 space-y-6 max-w-lg w-full mx-auto border border-gray-100">
+                <div className="mb-4 text-right text-sm text-gray-500 font-medium">Bem-vindo, {usuarioNome}!</div>
+                {erro && (
+                    <div className="mb-4 text-red-600 font-semibold bg-red-100 rounded p-2 border border-red-200">{erro}</div>
+                )}
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 gap-3">
+                    <h2 className="text-2xl font-bold text-blue-800 flex items-center gap-2">
+                        <span className="inline-block w-2 h-6 bg-blue-600 rounded mr-2"></span>
+                        {tarefa ? 'Editar Tarefa' : 'Nova Tarefa'}
+                    </h2>
+                    <button
+                        type="button"
+                        onClick={handleVisualizarLista}
+                        className="flex items-center gap-2 px-4 py-2 bg-blue-100 text-blue-800 rounded-lg hover:bg-blue-200 transition font-medium border border-blue-200 shadow-sm w-full sm:w-auto"
+                        title="Visualizar lista de tarefas"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" /></svg>
+                        Visualizar Lista
+                    </button>
+                </div>
+                <div>
+                    <label className="block text-gray-700 mb-1 font-medium">Nome da Tarefa</label>
                     <input
-                        type="date"
-                        value={dataInicio}
-                        onChange={(e) => setDataInicio(e.target.value)}
+                        type="text"
+                        value={nome}
+                        onChange={(e) => setNome(e.target.value)}
                         required
+                        placeholder="Digite o nome da tarefa"
                         className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition shadow-sm"
                     />
                 </div>
-                <div className="flex-1">
-                    <label className="block text-gray-700 mb-1 font-medium">Data de Fim</label>
-                    <input
-                        type="date"
-                        value={dataFim}
-                        onChange={(e) => setDataFim(e.target.value)}
-                        required
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition shadow-sm"
-                    />
+                <div className="flex flex-col sm:flex-row gap-4">
+                    <div className="flex-1">
+                        <label className="block text-gray-700 mb-1 font-medium">Data de Início</label>
+                        <input
+                            type="date"
+                            value={dataInicio}
+                            onChange={(e) => setDataInicio(e.target.value)}
+                            required
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition shadow-sm"
+                        />
+                    </div>
+                    <div className="flex-1">
+                        <label className="block text-gray-700 mb-1 font-medium">Data de Fim</label>
+                        <input
+                            type="date"
+                            value={dataFim}
+                            onChange={(e) => setDataFim(e.target.value)}
+                            required
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition shadow-sm"
+                        />
+                    </div>
                 </div>
-            </div>
-            <div>
-                <label className="block text-gray-700 mb-1 font-medium">Status</label>
-                <select
-                    value={status}
-                    onChange={(e) => setStatus(e.target.value)}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition shadow-sm"
-                >
-                    <option value="Pendente">Pendente</option>
-                    <option value="Em Andamento">Em Andamento</option>
-                    <option value="Concluída">Concluída</option>
-                </select>
-            </div>
-            <div className="flex justify-end gap-3 pt-2">
-                <button
-                    type="button"
-                    onClick={onCancel}
-                    className="flex items-center gap-2 px-5 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition font-medium shadow-sm border border-gray-300"
-                    title="Cancelar"
-                >
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
-                    Cancelar
-                </button>
-                <button
-                    type="submit"
-                    className="flex items-center gap-2 px-5 py-2 bg-blue-700 text-white rounded-lg hover:bg-blue-800 transition font-medium shadow-sm border border-blue-700"
-                    title="Salvar"
-                >
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
-                    Salvar
-                </button>
-            </div>
-        </form>
+                <div>
+                    <label className="block text-gray-700 mb-1 font-medium">Status</label>
+                    <select
+                        value={status}
+                        onChange={(e) => setStatus(e.target.value)}
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition shadow-sm"
+                    >
+                        <option value="Pendente">Pendente</option>
+                        <option value="Em Andamento">Em Andamento</option>
+                        <option value="Concluída">Concluída</option>
+                    </select>
+                </div>
+                <div className="flex flex-col sm:flex-row justify-end gap-3 pt-2">
+                    <button
+                        type="button"
+                        onClick={onCancel}
+                        className="flex items-center gap-2 px-5 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition font-medium shadow-sm border border-gray-300 w-full sm:w-auto"
+                        title="Cancelar"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+                        Cancelar
+                    </button>
+                    <button
+                        type="submit"
+                        className="flex items-center gap-2 px-5 py-2 bg-blue-700 text-white rounded-lg hover:bg-blue-800 transition font-medium shadow-sm border border-blue-700 w-full sm:w-auto"
+                        title="Salvar"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+                        Salvar
+                    </button>
+                </div>
+            </form>
+        </div>
     );
 };
 

@@ -30,7 +30,6 @@ public class TarefaService {
         tarefa.setDataHoraInicio(tarefaDTO.getDataHoraInicio());
         tarefa.setDataHoraFim(tarefaDTO.getDataHoraFim());
         tarefa.setStatus(tarefaDTO.getStatus());
-        // Associar usuário autenticado
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         Usuario usuario = usuarioRepository.findByLogin(username).orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
         tarefa.setUsuario(usuario);
@@ -45,7 +44,6 @@ public class TarefaService {
             tarefa.setDataHoraInicio(tarefaDTO.getDataHoraInicio());
             tarefa.setDataHoraFim(tarefaDTO.getDataHoraFim());
             tarefa.setStatus(tarefaDTO.getStatus());
-            // Atualizar usuário autenticado
             String username = SecurityContextHolder.getContext().getAuthentication().getName();
             Usuario usuario = usuarioRepository.findByLogin(username).orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
             tarefa.setUsuario(usuario);

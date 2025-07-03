@@ -43,7 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
             .authorizeRequests()
-            .antMatchers(HttpMethod.OPTIONS, "/**").permitAll() // Libera preflight CORS
+            .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
             .antMatchers(
                 "/api/auth/**",
                 "/swagger-ui.html",
@@ -53,8 +53,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 "/webjars/**",
                 "/swagger-resources/**"
             ).permitAll() // Permitir acesso público para autenticação e Swagger
-            .antMatchers("/api/tarefas/**").authenticated() // Tarefas só para autenticados
-            .anyRequest().authenticated(); // Requer autenticação para qualquer outra requisição
+            .antMatchers("/api/tarefas/**").authenticated()
+            .anyRequest().authenticated();
 
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
     }

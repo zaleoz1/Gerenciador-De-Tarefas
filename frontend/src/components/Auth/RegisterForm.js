@@ -28,7 +28,7 @@ const RegisterForm = () => {
     return (
         <div className="min-h-screen flex items-center justify-center p-2 overflow-hidden">
             <div className="w-full max-w-4xl flex flex-col md:flex-row rounded-3xl overflow-hidden shadow-2xl h-auto md:h-[600px]">
-                {/* Lado esquerdo: convite para login */}
+                {}
                 <div className="w-full md:w-1/2 h-full flex flex-col justify-center items-center bg-gradient-to-br from-white to-[#f3e5f5] p-6 md:p-10 relative">
                     <div className="text-center">
                         <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Já tem uma conta?</h2>
@@ -41,7 +41,7 @@ const RegisterForm = () => {
                         </button>
                     </div>
                 </div>
-                {/* Lado direito: Cadastro */}
+                {}
                 <div className="w-full md:w-1/2 h-full bg-[#23242a] flex flex-col justify-center items-center p-6 md:p-10">
                     <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 md:mb-8 text-center">Cadastro</h2>
                     <form onSubmit={handleSubmit} className="w-full max-w-xs space-y-4">

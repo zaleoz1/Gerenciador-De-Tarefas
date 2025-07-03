@@ -6,27 +6,44 @@ Este é o frontend da aplicação Gerenciador de Tarefas, uma To-Do List simples
 
 - React
 - React Hooks
+- React Router DOM
 - JavaScript
-- CSS
+- Axios
+- TailwindCSS
+- PostCSS
+- Autoprefixer
+- Docker
 
 ## Estrutura do Projeto
 
-- `public/index.html`: Arquivo HTML principal da aplicação.
-- `src/App.js`: Componente principal que gerencia a estrutura e lógica da interface.
+- `public/index.html`: HTML principal da aplicação.
+- `public/Styles/Styles.css`: Arquivo de estilos base do TailwindCSS.
+- `public/Styles/output.css`: CSS gerado pelo Tailwind.
+- `img/`: Imagens utilizadas na interface.
+- `src/App.js`: Componente principal React.
 - `src/index.js`: Ponto de entrada da aplicação React.
-- `src/components/Auth/`: Contém os componentes para autenticação (Login e Registro).
-- `src/components/Tarefas/`: Contém os componentes para gerenciamento de tarefas (Formulário e Lista).
-- `src/services/`: Contém funções para interagir com a API do backend e gerenciar autenticação.
-- `src/utils/`: Contém funções utilitárias, como armazenamento e recuperação do token JWT.
+- `src/components/Auth/LoginForm.js`: Formulário de login.
+- `src/components/Auth/RegisterForm.js`: Formulário de registro.
+- `src/components/Tarefas/TarefaForm.js`: Formulário para criar/editar tarefas.
+- `src/components/Tarefas/TarefaList.js`: Lista de tarefas do usuário.
+- `src/services/api.js`: Configuração do Axios para requisições à API.
+- `src/services/auth.js`: Funções de autenticação (login, registro, etc).
+- `src/utils/jwt.js`: Utilitário para manipulação de tokens JWT.
+
+## Scripts Disponíveis
+
+- `npm start`: Inicia a aplicação em modo desenvolvimento.
+- `npm run build`: Gera o build de produção.
+- `npm run dev`: Gera o CSS do Tailwind em modo watch (útil para desenvolvimento de estilos).
+- `npm test`: Executa os testes (caso existam).
 
 ## Instalação
 
 1. Clone o repositório:
    ```
-   git clone <URL_DO_REPOSITORIO>
+   git clone <https://github.com/zaleoz1/Gerenciador-De-Tarefas>
    cd gerenciador-de-tarefas/frontend
    ```
-
 2. Instale as dependências:
    ```
    npm install
@@ -42,19 +59,17 @@ npm start
 
 A aplicação estará disponível em `http://localhost:3000`.
 
+Para compilar o CSS do Tailwind em tempo real durante o desenvolvimento de estilos, utilize:
+
+```
+npm run dev
+```
+
 ## Docker
 
-Para construir e executar a aplicação utilizando Docker, utilize o comando:
+Para construir e executar a aplicação utilizando Docker:
 
 ```
 docker build -t gerenciador-de-tarefas-frontend .
 docker run -p 3000:3000 gerenciador-de-tarefas-frontend
 ```
-
-## Contribuição
-
-Sinta-se à vontade para contribuir com melhorias ou correções. Abra uma issue ou um pull request!
-
-## Licença
-
-Este projeto está licenciado sob a MIT License.

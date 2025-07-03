@@ -29,8 +29,6 @@ public class Tarefa {
     @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario usuario;
 
-    // Getters e Setters
-
     public Long getId() {
         return id;
     }

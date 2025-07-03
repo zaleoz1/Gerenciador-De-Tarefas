@@ -30,7 +30,6 @@ public class AuthService {
         if (usuarioOpt.isPresent()) {
             Usuario usuario = usuarioOpt.get();
             if (passwordEncoder.matches(request.getSenha(), usuario.getSenha())) {
-                // Aqui você deveria gerar e retornar o token JWT
                 return "fake-jwt-token";
             }
         }

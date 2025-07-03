@@ -2,7 +2,6 @@ import axios from 'axios';
 
 const API_URL = 'http://localhost:8080/api'; // URL base da API
 
-// Interceptor para tratar token expirado ou inválido
 axios.interceptors.response.use(
     response => response,
     error => {

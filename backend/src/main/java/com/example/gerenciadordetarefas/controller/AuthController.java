@@ -66,6 +66,7 @@ public class AuthController {
         Map<String, String> resposta = new HashMap<>();
         resposta.put("token", token);
         resposta.put("mensagem", "Login realizado com sucesso!");
+        resposta.put("nome", usuario.getNomeCompleto()); 
         return ResponseEntity.ok(resposta);
     }
 }

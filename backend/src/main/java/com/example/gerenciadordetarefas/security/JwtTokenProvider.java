@@ -13,7 +13,7 @@ public class JwtTokenProvider {
     @Value("${jwt.secret:segredo123}")
     private String jwtSecret;
 
-    @Value("${jwt.expiration:86400000}") // 1 dia
+    @Value("${jwt.expiration:86400000}") 
     private long jwtExpirationInMs;
 
     public String gerarToken(String username) {

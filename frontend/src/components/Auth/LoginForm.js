@@ -26,7 +26,7 @@ const LoginForm = () => {
     return (
         <div className="min-h-screen flex items-center justify-center p-2 overflow-hidden">
             <div className="w-full max-w-5xl flex flex-col md:flex-row rounded-3xl overflow-hidden shadow-2xl h-auto md:h-[600px]">
-                {/* Lado esquerdo: Login */}
+                {}
                 <div className="w-full md:w-1/2 h-full bg-[#23242a] flex flex-col justify-center items-center p-6 md:p-10">
                     <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 md:mb-8 text-center">Fazer login</h2>
                     <form onSubmit={handleSubmit} className="w-full max-w-xs space-y-4">
@@ -67,7 +67,7 @@ const LoginForm = () => {
                         </button>
                     </div>
                 </div>
-                {/* Lado direito: Cadastro convite */}
+                {}
                 <div className="w-full md:w-1/2 h-full flex flex-col justify-center items-center bg-gradient-to-br from-white to-[#d1c4e9] p-6 md:p-10 relative">
                     <div className="text-center">
                         <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Não tem uma conta?</h2>
