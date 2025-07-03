@@ -8,6 +8,8 @@ const RegisterForm = () => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const history = useHistory();
 
     const handleSubmit = async (e) => {
@@ -62,22 +64,42 @@ const RegisterForm = () => {
                             required
                             className="w-full px-4 py-3 bg-[#35363b] text-white rounded-md focus:outline-none focus:ring-2 focus:ring-violet-400 placeholder-gray-400"
                         />
-                        <input
-                            type="password"
-                            placeholder="Senha"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            required
-                            className="w-full px-4 py-3 bg-[#35363b] text-white rounded-md focus:outline-none focus:ring-2 focus:ring-violet-400 placeholder-gray-400"
-                        />
-                        <input
-                            type="password"
-                            placeholder="Confirmação de Senha"
-                            value={confirmPassword}
-                            onChange={(e) => setConfirmPassword(e.target.value)}
-                            required
-                            className="w-full px-4 py-3 bg-[#35363b] text-white rounded-md focus:outline-none focus:ring-2 focus:ring-violet-400 placeholder-gray-400"
-                        />
+                        <div className="relative">
+                            <input
+                                type={showPassword ? "text" : "password"}
+                                placeholder="Senha"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                required
+                                className="w-full px-4 py-3 bg-[#35363b] text-white rounded-md focus:outline-none focus:ring-2 focus:ring-violet-400 placeholder-gray-400 pr-16"
+                            />
+                            <button
+                                type="button"
+                                onClick={() => setShowPassword(!showPassword)}
+                                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-200 text-sm"
+                                tabIndex={-1}
+                            >
+                                {showPassword ? 'Ocultar' : 'Mostrar'}
+                            </button>
+                        </div>
+                        <div className="relative">
+                            <input
+                                type={showConfirmPassword ? "text" : "password"}
+                                placeholder="Confirmação de Senha"
+                                value={confirmPassword}
+                                onChange={(e) => setConfirmPassword(e.target.value)}
+                                required
+                                className="w-full px-4 py-3 bg-[#35363b] text-white rounded-md focus:outline-none focus:ring-2 focus:ring-violet-400 placeholder-gray-400 pr-16"
+                            />
+                            <button
+                                type="button"
+                                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-200 text-sm"
+                                tabIndex={-1}
+                            >
+                                {showConfirmPassword ? 'Ocultar' : 'Mostrar'}
+                            </button>
+                        </div>
                         <button type="submit" className="w-full py-3 rounded-md bg-gradient-to-r from-violet-500 to-pink-200 text-white font-semibold text-lg transition hover:from-violet-600 hover:to-pink-300">Cadastrar</button>
                     </form>
                     <div className="flex items-center w-full max-w-xs my-6">

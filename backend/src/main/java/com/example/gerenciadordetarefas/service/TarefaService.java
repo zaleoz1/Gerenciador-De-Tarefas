@@ -21,7 +21,9 @@ public class TarefaService {
     private UsuarioRepository usuarioRepository;
 
     public List<Tarefa> listarTarefas() {
-        return tarefaRepository.findAll();
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        Usuario usuario = usuarioRepository.findByLogin(username).orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+        return tarefaRepository.findByUsuario(usuario);
     }
 
     public Tarefa criarTarefa(TarefaDTO tarefaDTO) {

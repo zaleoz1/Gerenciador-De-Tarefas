@@ -5,6 +5,7 @@ import { login } from '../../services/auth';
 const LoginForm = () => {
     const [loginInput, setLoginInput] = useState('');
     const [senha, setSenha] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
     const [erro, setErro] = useState('');
     const history = useHistory();
 
@@ -19,7 +20,11 @@ const LoginForm = () => {
             await login(loginInput, senha);
             history.push('/tarefas');
         } catch (err) {
-            setErro('Login inválido. Verifique seu usuário e senha.');
+            if (err && err.response && (err.response.status === 401 || err.response.status === 403)) {
+                setErro('Usuário ou senha incorretos.');
+            } else {
+                setErro('Erro ao tentar fazer login. Tente novamente.');
+            }
         }
     };
 
@@ -41,16 +46,26 @@ const LoginForm = () => {
                             required
                             className="w-full px-4 py-3 bg-[#35363b] text-white rounded-md focus:outline-none focus:ring-2 focus:ring-violet-400 placeholder-gray-400"
                         />
-                        <input
-                            type="password"
-                            id="password"
-                            name="password"
-                            placeholder="Senha"
-                            value={senha}
-                            onChange={e => setSenha(e.target.value)}
-                            required
-                            className="w-full px-4 py-3 bg-[#35363b] text-white rounded-md focus:outline-none focus:ring-2 focus:ring-violet-400 placeholder-gray-400"
-                        />
+                        <div className="relative">
+                            <input
+                                type={showPassword ? "text" : "password"}
+                                id="password"
+                                name="password"
+                                placeholder="Senha"
+                                value={senha}
+                                onChange={e => setSenha(e.target.value)}
+                                required
+                                className="w-full px-4 py-3 bg-[#35363b] text-white rounded-md focus:outline-none focus:ring-2 focus:ring-violet-400 placeholder-gray-400 pr-16"
+                            />
+                            <button
+                                type="button"
+                                onClick={() => setShowPassword(!showPassword)}
+                                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-200 text-sm"
+                                tabIndex={-1}
+                            >
+                                {showPassword ? 'Ocultar' : 'Mostrar'}
+                            </button>
+                        </div>
                         <button type="submit" className="w-full py-3 rounded-md bg-gradient-to-r from-violet-500 to-pink-200 text-white font-semibold text-lg transition hover:from-violet-600 hover:to-pink-300">Entrar</button>
                     </form>
                     <div className="flex items-center w-full max-w-xs my-6"> 
