@@ -131,10 +131,3 @@ gerenciador-de-tarefas/
 - **Backend:** Testes automatizados em `backend/src/test/java/...`
 - **Frontend:** Suporte a testes com `npm test`
 
-## Contribuição
-
-Sinta-se à vontade para contribuir com melhorias ou correções. Para isso, crie um fork do repositório, faça suas alterações e envie um pull request.
-
-## Licença
-
-Este projeto está licenciado sob a MIT License. Veja o arquivo LICENSE para mais detalhes.
