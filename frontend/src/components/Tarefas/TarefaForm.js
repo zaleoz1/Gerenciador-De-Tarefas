@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { createTask, updateTask } from '../../services/api';
-import { useHistory } from 'react-router-dom';
+import { createTask, updateTask, getTaskById } from '../../services/api';
+import { useHistory, useParams } from 'react-router-dom';
 import { getToken } from '../../utils/jwt';
 
-const TarefaForm = ({ tarefa, onSave, onCancel }) => {
+const TarefaForm = ({ tarefa: tarefaProp, onSave, onCancel }) => {
     const [nome, setNome] = useState('');
     const [dataInicio, setDataInicio] = useState('');
     const [dataFim, setDataFim] = useState('');
@@ -11,17 +11,37 @@ const TarefaForm = ({ tarefa, onSave, onCancel }) => {
     const [erro, setErro] = useState('');
     const [sucesso, setSucesso] = useState('');
     const [showSucesso, setShowSucesso] = useState(false);
+    const [carregando, setCarregando] = useState(false);
     const history = useHistory();
+    const { id } = useParams();
     const usuarioNome = localStorage.getItem('usuarioNome') || 'Usuário';
+    const tarefa = tarefaProp;
 
     useEffect(() => {
-        if (tarefa) {
-            setNome(tarefa.nome);
-            setDataInicio(tarefa.dataHoraInicio ? tarefa.dataHoraInicio.substring(0, 10) : '');
-            setDataFim(tarefa.dataHoraFim ? tarefa.dataHoraFim.substring(0, 10) : '');
-            setStatus(tarefa.status);
-        }
-    }, [tarefa]);
+        const fetchTarefa = async () => {
+            if (id) {
+                setCarregando(true);
+                try {
+                    const token = getToken();
+                    const tarefaData = await getTaskById(id, token);
+                    setNome(tarefaData.nome);
+                    setDataInicio(tarefaData.dataHoraInicio ? tarefaData.dataHoraInicio.substring(0, 10) : '');
+                    setDataFim(tarefaData.dataHoraFim ? tarefaData.dataHoraFim.substring(0, 10) : '');
+                    setStatus(tarefaData.status);
+                } catch (err) {
+                    setErro('Erro ao carregar tarefa para edição.');
+                } finally {
+                    setCarregando(false);
+                }
+            } else if (tarefaProp) {
+                setNome(tarefaProp.nome);
+                setDataInicio(tarefaProp.dataHoraInicio ? tarefaProp.dataHoraInicio.substring(0, 10) : '');
+                setDataFim(tarefaProp.dataHoraFim ? tarefaProp.dataHoraFim.substring(0, 10) : '');
+                setStatus(tarefaProp.status);
+            }
+        };
+        fetchTarefa();
+    }, [id, tarefaProp]);
 
     const toLocalDateTime = (dateStr) => {
         return dateStr ? `${dateStr}T00:00:00` : '';
@@ -40,8 +60,8 @@ const TarefaForm = ({ tarefa, onSave, onCancel }) => {
         };
         const token = getToken();
         try {
-            if (tarefa) {
-                await updateTask(tarefa.id, tarefaData, token);
+            if (id) {
+                await updateTask(id, tarefaData, token);
             } else {
                 await createTask(tarefaData, token);
                 // Limpa o formulário após salvar nova tarefa
@@ -69,8 +89,19 @@ const TarefaForm = ({ tarefa, onSave, onCancel }) => {
         history.push('/tarefas');
     };
 
+    const handleLogout = () => {
+        localStorage.removeItem('user');
+        localStorage.removeItem('usuarioNome');
+        localStorage.removeItem('token');
+        history.push('/login');
+    };
+
+    if (carregando) {
+        return <div className="text-center py-10 text-blue-700 font-bold">Carregando tarefa...</div>;
+    }
+
     return (
-        <div className="relative w-full max-w-lg mx-auto">
+        <div className="relative w-full max-w-4xl mx-auto">
             {}
             <div
                 className={`fixed left-1/2 top-8 z-50 transform -translate-x-1/2 transition-all duration-500 ${showSucesso ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'}`}
@@ -82,8 +113,18 @@ const TarefaForm = ({ tarefa, onSave, onCancel }) => {
                     </div>
                 )}
             </div>
-            <form onSubmit={handleSubmit} className="bg-white rounded-xl shadow-2xl p-4 sm:p-6 md:p-8 space-y-6 max-w-lg w-full mx-auto border border-gray-100">
-                <div className="mb-4 text-right text-sm text-gray-500 font-medium">Bem-vindo, {usuarioNome}!</div>
+            <form onSubmit={handleSubmit} className="bg-white rounded-xl shadow-2xl p-4 sm:p-6 md:p-8 space-y-6 max-w-4xl w-full mx-auto border border-gray-100">
+                <div className="mb-4 flex justify-between items-center">
+                    <div className="text-right text-sm text-gray-500 font-medium">Bem-vindo, {usuarioNome}!</div>
+                    <button
+                        type="button"
+                        onClick={handleLogout}
+                        className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition font-medium border border-red-500 shadow-sm"
+                        title="Sair"
+                    >
+                        Logout
+                    </button>
+                </div>
                 {erro && (
                     <div className="mb-4 text-red-600 font-semibold bg-red-100 rounded p-2 border border-red-200">{erro}</div>
                 )}

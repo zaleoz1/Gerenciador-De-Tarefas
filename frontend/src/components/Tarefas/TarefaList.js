@@ -34,9 +34,30 @@ const TarefaList = () => {
         history.push('/nova-tarefa');
     };
 
+    const handleEditar = (id) => {
+        history.push(`/editar-tarefa/${id}`);
+    };
+
+    const handleLogout = () => {
+        localStorage.removeItem('user');
+        localStorage.removeItem('usuarioNome');
+        localStorage.removeItem('token');
+        history.push('/login');
+    };
+
     return (
         <div className="bg-white rounded-xl shadow-2xl p-4 sm:p-6 md:p-8 max-w-3xl w-full mx-auto border border-gray-100">
-            <div className="mb-4 text-right text-sm text-gray-500 font-medium">Bem-vindo, {usuarioNome}!</div>
+            <div className="mb-4 flex justify-between items-center">
+                <div className="text-sm text-gray-500 font-medium">Bem-vindo, {usuarioNome}!</div>
+                <button
+                    type="button"
+                    onClick={handleLogout}
+                    className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition font-medium border border-red-500 shadow-sm"
+                    title="Sair"
+                >
+                    Logout
+                </button>
+            </div>
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-3">
                 <h2 className="text-2xl font-bold text-blue-800 flex items-center gap-2">
                     <span className="inline-block w-2 h-6 bg-blue-600 rounded mr-2"></span>
@@ -64,7 +85,14 @@ const TarefaList = () => {
                             <span className="ml-0 sm:ml-4 text-sm text-gray-500">Fim: {tarefa.dataHoraFim ? tarefa.dataHoraFim.substring(0, 10) : '--'}</span>
                         </div>
                         <div className="flex gap-2 mt-3 md:mt-0 md:ml-4 justify-end w-full md:w-auto">
-                            {}
+                            <button
+                                onClick={() => handleEditar(tarefa.id)}
+                                className="flex items-center gap-1 px-4 py-2 bg-yellow-400 text-white rounded-lg hover:bg-yellow-500 transition font-medium shadow-sm border border-yellow-400 w-full md:w-auto"
+                                title="Editar"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536M9 13h3l8-8a2.828 2.828 0 00-4-4l-8 8v3z" /></svg>
+                                Editar
+                            </button>
                             <button
                                 onClick={() => handleDelete(tarefa.id)}
                                 className="flex items-center gap-1 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition font-medium shadow-sm border border-red-500 w-full md:w-auto"

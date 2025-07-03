@@ -22,14 +22,6 @@ function Layout({ children }) {
 
   return (
     <div className="min-h-screen flex flex-col relative">
-      {(location.pathname === '/login' || location.pathname === '/register') && (
-        <img
-          src="img\img (2).jpg"
-          alt="Decorativo"
-          className="fixed inset-0 w-full h-full object-cover z-0 pointer-events-none"
-          style={{minHeight: '100vh'}}
-        />
-      )}
       <main className="flex-1 flex items-center justify-center p-6 z-10 relative">
         <div className={hideHeaderFooter ? 'w-full' : 'w-full max-w-2xl'}>
           {children}
@@ -48,6 +40,7 @@ function App() {
           <Route path="/register" component={RegisterForm} />
           <Route path="/tarefas" component={TarefaList} />
           <Route path="/nova-tarefa" component={TarefaForm} />
+          <Route path="/editar-tarefa/:id" component={TarefaForm} />
           <Route path="/" exact component={LoginForm} />
         </Switch>
       </Layout>

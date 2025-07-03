@@ -65,3 +65,13 @@ export const deleteTask = async (taskId, token) => {
     });
     return response.data;
 };
+
+// Função para buscar uma tarefa pelo ID
+export const getTaskById = async (taskId, token) => {
+    const response = await axios.get(`${API_URL}/tarefas/${taskId}`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    return response.data;
+};

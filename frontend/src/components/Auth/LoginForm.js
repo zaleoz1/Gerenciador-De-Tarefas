@@ -53,18 +53,7 @@ const LoginForm = () => {
                         />
                         <button type="submit" className="w-full py-3 rounded-md bg-gradient-to-r from-violet-500 to-pink-200 text-white font-semibold text-lg transition hover:from-violet-600 hover:to-pink-300">Entrar</button>
                     </form>
-                    <div className="flex items-center w-full max-w-xs my-6">
-                        <div className="flex-grow h-px bg-gray-600" />
-                        <span className="mx-2 text-gray-400">ou</span>
-                        <div className="flex-grow h-px bg-gray-600" />
-                    </div>
-                    <div className="flex space-x-6 justify-center">
-                        <button className="bg-[#23242a] border border-gray-500 rounded-full p-3 hover:bg-[#35363b] transition">
-                            <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M21.805 10.023h-9.765v3.954h5.617c-.242 1.242-1.484 3.648-5.617 3.648-3.375 0-6.125-2.789-6.125-6.25s2.75-6.25 6.125-6.25c1.922 0 3.211.82 3.953 1.523l2.703-2.633c-1.703-1.57-3.891-2.539-6.656-2.539-5.523 0-10 4.477-10 10s4.477 10 10 10c5.75 0 9.547-4.031 9.547-9.719 0-.656-.07-1.148-.156-1.484z"/></svg>
-                        </button>
-                        <button className="bg-[#23242a] border border-gray-500 rounded-full p-3 hover:bg-[#35363b] transition">
-                            <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.877v-6.987h-2.54v-2.89h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.242 0-1.632.771-1.632 1.562v1.875h2.773l-.443 2.89h-2.33v6.987C18.343 21.128 22 16.991 22 12c0-5.523-4.477-10-10-10z"/></svg>
-                        </button>
+                    <div className="flex items-center w-full max-w-xs my-6"> 
                     </div>
                 </div>
                 {}

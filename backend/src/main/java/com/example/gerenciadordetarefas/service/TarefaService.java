@@ -55,4 +55,18 @@ public class TarefaService {
     public void excluirTarefa(Long id) {
         tarefaRepository.deleteById(id);
     }
+
+    public TarefaDTO buscarTarefaPorId(Long id) {
+        Optional<Tarefa> optTarefa = tarefaRepository.findById(id);
+        if (optTarefa.isPresent()) {
+            Tarefa tarefa = optTarefa.get();
+            TarefaDTO dto = new TarefaDTO();
+            dto.setNome(tarefa.getNome());
+            dto.setDataHoraInicio(tarefa.getDataHoraInicio());
+            dto.setDataHoraFim(tarefa.getDataHoraFim());
+            dto.setStatus(tarefa.getStatus());
+            return dto;
+        }
+        return null;
+    }
 }

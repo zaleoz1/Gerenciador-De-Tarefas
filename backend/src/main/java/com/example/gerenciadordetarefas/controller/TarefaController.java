@@ -28,6 +28,16 @@ public class TarefaController {
         return ResponseEntity.ok(tarefas);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<TarefaDTO> buscarTarefaPorId(@PathVariable Long id) {
+        TarefaDTO tarefaDTO = tarefaService.buscarTarefaPorId(id);
+        if (tarefaDTO != null) {
+            return ResponseEntity.ok(tarefaDTO);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<Tarefa> editarTarefa(@PathVariable Long id, @RequestBody TarefaDTO tarefaDTO) {
         Tarefa tarefaAtualizada = tarefaService.editarTarefa(id, tarefaDTO);
