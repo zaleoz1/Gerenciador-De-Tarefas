@@ -2,6 +2,19 @@ import axios from 'axios';
 
 const API_URL = 'http://localhost:8080/api'; // URL base da API
 
+// Interceptor para tratar token expirado ou inválido
+axios.interceptors.response.use(
+    response => response,
+    error => {
+        if (error.response && (error.response.status === 401 || error.response.status === 403)) {
+            localStorage.removeItem('user');
+            localStorage.removeItem('usuarioNome');
+            window.location.href = '/login';
+        }
+        return Promise.reject(error);
+    }
+);
+
 // Função para registrar um novo usuário
 export const registerUser = async (userData) => {
     const response = await axios.post(`${API_URL}/auth/register`, userData);

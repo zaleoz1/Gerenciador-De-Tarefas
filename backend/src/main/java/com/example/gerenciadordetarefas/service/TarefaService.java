@@ -2,8 +2,11 @@ package com.example.gerenciadordetarefas.service;
 
 import com.example.gerenciadordetarefas.dto.TarefaDTO;
 import com.example.gerenciadordetarefas.model.Tarefa;
+import com.example.gerenciadordetarefas.model.Usuario;
 import com.example.gerenciadordetarefas.repository.TarefaRepository;
+import com.example.gerenciadordetarefas.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,6 +16,9 @@ import java.util.Optional;
 public class TarefaService {
     @Autowired
     private TarefaRepository tarefaRepository;
+
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
     public List<Tarefa> listarTarefas() {
         return tarefaRepository.findAll();
@@ -24,7 +30,10 @@ public class TarefaService {
         tarefa.setDataHoraInicio(tarefaDTO.getDataHoraInicio());
         tarefa.setDataHoraFim(tarefaDTO.getDataHoraFim());
         tarefa.setStatus(tarefaDTO.getStatus());
-        // tarefa.setUsuario(...); // Defina o usuário conforme sua lógica
+        // Associar usuário autenticado
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        Usuario usuario = usuarioRepository.findByLogin(username).orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+        tarefa.setUsuario(usuario);
         return tarefaRepository.save(tarefa);
     }
 
@@ -36,7 +45,10 @@ public class TarefaService {
             tarefa.setDataHoraInicio(tarefaDTO.getDataHoraInicio());
             tarefa.setDataHoraFim(tarefaDTO.getDataHoraFim());
             tarefa.setStatus(tarefaDTO.getStatus());
-            // tarefa.setUsuario(...); // Atualize o usuário se necessário
+            // Atualizar usuário autenticado
+            String username = SecurityContextHolder.getContext().getAuthentication().getName();
+            Usuario usuario = usuarioRepository.findByLogin(username).orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+            tarefa.setUsuario(usuario);
             return tarefaRepository.save(tarefa);
         }
         return null;

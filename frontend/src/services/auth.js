@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { setToken } from '../utils/jwt';
 
 const API_URL = 'http://localhost:8080/api/auth/';
 
@@ -17,6 +18,11 @@ export const login = (login, password) => {
     }).then(response => {
         if (response.data.token) {
             localStorage.setItem('user', JSON.stringify(response.data));
+            setToken(response.data.token); // Salva o token JWT corretamente
+            // Salva o nome do usuário para exibição
+            if (response.data.nome || response.data.nomeCompleto || response.data.username) {
+                localStorage.setItem('usuarioNome', response.data.nome || response.data.nomeCompleto || response.data.username);
+            }
         }
         return response.data;
     });

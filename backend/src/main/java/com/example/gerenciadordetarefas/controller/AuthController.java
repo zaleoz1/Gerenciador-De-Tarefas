@@ -3,10 +3,14 @@ package com.example.gerenciadordetarefas.controller;
 import com.example.gerenciadordetarefas.dto.UsuarioDTO;
 import com.example.gerenciadordetarefas.model.Usuario;
 import com.example.gerenciadordetarefas.repository.UsuarioRepository;
+import com.example.gerenciadordetarefas.security.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -17,6 +21,9 @@ public class AuthController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private JwtTokenProvider jwtTokenProvider;
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody UsuarioDTO usuarioDTO) {
@@ -54,6 +61,11 @@ public class AuthController {
             return ResponseEntity.status(401).body("Login inválido. Verifique seu usuário e senha.");
         }
 
-        return ResponseEntity.ok("Login realizado com sucesso!");
+        // Gerar token JWT
+        String token = jwtTokenProvider.gerarToken(usuario.getLogin());
+        Map<String, String> resposta = new HashMap<>();
+        resposta.put("token", token);
+        resposta.put("mensagem", "Login realizado com sucesso!");
+        return ResponseEntity.ok(resposta);
     }
 }
