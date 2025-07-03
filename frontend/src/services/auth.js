@@ -4,16 +4,16 @@ const API_URL = 'http://localhost:8080/api/auth/';
 
 export const register = (name, login, password) => {
     return axios.post(API_URL + 'register', {
-        name,
+        nomeCompleto: name,
         login,
-        password
+        senha: password
     });
 };
 
 export const login = (login, password) => {
     return axios.post(API_URL + 'login', {
         login,
-        password
+        senha: password // Corrija aqui!
     }).then(response => {
         if (response.data.token) {
             localStorage.setItem('user', JSON.stringify(response.data));
