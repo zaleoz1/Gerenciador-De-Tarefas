@@ -101,7 +101,7 @@ const TarefaForm = ({ tarefa: tarefaProp, onSave, onCancel }) => {
     }
 
     return (
-        <div className="relative w-full max-w-4xl mx-auto">
+        <div className="relative w-full max-w-5xl mx-auto">
             {}
             <div
                 className={`fixed left-1/2 top-8 z-50 transform -translate-x-1/2 transition-all duration-500 ${showSucesso ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'}`}
@@ -113,15 +113,16 @@ const TarefaForm = ({ tarefa: tarefaProp, onSave, onCancel }) => {
                     </div>
                 )}
             </div>
-            <form onSubmit={handleSubmit} className="bg-white rounded-xl shadow-2xl p-4 sm:p-6 md:p-8 space-y-6 max-w-4xl w-full mx-auto border border-gray-100">
+            <form onSubmit={handleSubmit} className="bg-white rounded-xl shadow-2xl p-4 sm:p-6 md:p-8 space-y-6 max-w-5xl w-full mx-auto border border-gray-100">
                 <div className="mb-4 flex justify-between items-center">
                     <div className="text-right text-sm text-gray-500 font-medium">Bem-vindo, {usuarioNome}!</div>
                     <button
                         type="button"
                         onClick={handleLogout}
-                        className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition font-medium border border-red-500 shadow-sm"
+                        className="px-2 py-1 bg-red-500 text-white rounded-md hover:bg-red-600 transition font-medium border border-red-500 shadow-sm flex items-center gap-1 text-sm"
                         title="Sair"
                     >
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H7a2 2 0 01-2-2V7a2 2 0 012-2h4a2 2 0 012 2v1" /></svg>
                         Logout
                     </button>
                 </div>
