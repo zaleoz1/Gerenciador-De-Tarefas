@@ -1,10 +1,13 @@
 com\example\gerenciadordetarefas\dto\TarefaDTO.class
 com\example\gerenciadordetarefas\service\TarefaService.class
 com\example\gerenciadordetarefas\repository\UsuarioRepository.class
+com\example\gerenciadordetarefas\security\JwtTokenProvider.class
+com\example\gerenciadordetarefas\security\CustomUserDetailsService.class
 com\example\gerenciadordetarefas\dto\LoginRequest.class
 com\example\gerenciadordetarefas\security\JwtAuthenticationFilter.class
 com\example\gerenciadordetarefas\controller\AuthController.class
 com\example\gerenciadordetarefas\service\AuthService.class
+com\example\gerenciadordetarefas\dto\UsuarioDTO.class
 com\example\gerenciadordetarefas\dto\RegisterRequest.class
 com\example\gerenciadordetarefas\model\Usuario.class
 com\example\gerenciadordetarefas\GerenciadorDeTarefasApplication.class
@@ -12,3 +15,4 @@ com\example\gerenciadordetarefas\config\SecurityConfig.class
 com\example\gerenciadordetarefas\model\Tarefa.class
 com\example\gerenciadordetarefas\controller\TarefaController.class
 com\example\gerenciadordetarefas\repository\TarefaRepository.class
+com\example\gerenciadordetarefas\config\WebConfig.class

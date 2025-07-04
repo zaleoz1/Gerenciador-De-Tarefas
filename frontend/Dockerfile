@@ -1,4 +1,5 @@
-FROM node:14
+# Etapa 1: build da aplicação React
+FROM node:14 as build
 
 # Define o diretório de trabalho
 WORKDIR /app
@@ -15,8 +16,15 @@ COPY . .
 # Compila a aplicação
 RUN npm run build
 
-# Expõe a porta que a aplicação irá rodar
-EXPOSE 3000
+# Etapa 2: servidor Nginx para servir o build
+FROM nginx:alpine
 
-# Comando para iniciar a aplicação
-CMD ["npm", "start"]
+# Copia os arquivos da build para o diretório padrão do Nginx
+COPY --from=build /app/build /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+# Expõe a porta que a aplicação irá rodar
+EXPOSE 80
+
+# Comando para iniciar o Nginx
+CMD ["nginx", "-g", "daemon off;"]
